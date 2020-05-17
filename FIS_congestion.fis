@@ -1,0 +1,62 @@
+[System]
+Name='FIS_congestion'
+Type='mamdani'
+Version=2.0
+NumInputs=3
+NumOutputs=1
+NumRules=14
+AndMethod='min'
+OrMethod='max'
+ImpMethod='min'
+AggMethod='max'
+DefuzzMethod='centroid'
+
+[Input1]
+Name='time_of_day'
+Range=[0 24]
+NumMFs=5
+MF1='morning_rush':'gaussmf',[1 8]
+MF2='evening_rush':'gaussmf',[1 17]
+MF3='early_morning':'trapmf',[0 0 3 6.5]
+MF4='midday':'gaussmf',[1.5 12]
+MF5='late_night':'trapmf',[19 23 24 24]
+
+[Input2]
+Name='degree_of_incident'
+Range=[0 10]
+NumMFs=3
+MF1='low':'trapmf',[0 0 1 3.5]
+MF2='medium':'gaussmf',[1 5]
+MF3='severe':'trapmf',[6.5 9 10 10]
+
+[Input3]
+Name='degree_of_utility_work'
+Range=[0 10]
+NumMFs=3
+MF1='low':'trapmf',[0 0 1 3.5]
+MF2='mdoerate':'gaussmf',[1 5]
+MF3='high':'trapmf',[6.5 9 10 10]
+
+[Output1]
+Name='congestion'
+Range=[0 10]
+NumMFs=3
+MF1='low':'trapmf',[0 0 2 4]
+MF2='average':'gaussmf',[1.2 5]
+MF3='high':'trapmf',[6 8 10 10]
+
+[Rules]
+0 3 0, 3 (1) : 2
+0 0 3, 3 (1) : 2
+1 0 0, 3 (1) : 2
+2 0 0, 3 (1) : 2
+3 1 1, 1 (1) : 1
+3 2 0, 2 (1) : 1
+3 0 2, 2 (1) : 1
+4 1 1, 1 (1) : 1
+4 2 0, 2 (1) : 1
+4 0 2, 2 (1) : 1
+5 1 1, 1 (1) : 1
+5 2 0, 2 (1) : 1
+5 0 2, 2 (1) : 1
+0 2 2, 3 (1) : 2
